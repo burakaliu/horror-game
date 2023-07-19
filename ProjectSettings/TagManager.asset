@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - player
+  - finishDoor
+  - key
+  - keyIcon
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - floor
   - whatIsPlayer
   - whatIsGround
-  - 
+  - camera
   - 
   - 
   - 
