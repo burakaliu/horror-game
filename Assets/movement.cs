@@ -33,7 +33,7 @@ public class movement : MonoBehaviour
         float currentSpeed = isSprinting ? sprintSpeed : movementSpeed;
         Vector3 moveVelocity = transform.TransformDirection(movement) * currentSpeed;
         // Check if the player is providing input for movement
-        rb.AddForce(moveVelocity - rb.velocity, ForceMode.VelocityChange);
+        rb.AddForce(moveVelocity - rb.velocity, ForceMode.Acceleration);
        
 
         // Apply rotation based on mouse movement
