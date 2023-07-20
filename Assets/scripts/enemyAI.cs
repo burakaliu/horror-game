@@ -9,9 +9,9 @@ public class enemyAI : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private float idleTimer;
     private float idleTime = 9.7f;
-    public float alertRange = 10f;
-    public float chaseRange = 5f;
-    public float patrolRange = 15f;
+    public float alertRange = 20f;
+    public float chaseRange = 15f;
+    public float patrolRange = 25f;
 
     public enum MonsterState { Idle, Alert, Chase }
     public MonsterState currentState;
@@ -24,11 +24,26 @@ public class enemyAI : MonoBehaviour
     private float patrolTime = 5f; // Adjust this to set how long the monster patrols in Alert state.
     private Vector3 randomPatrolPoint;
 
+    public Color alertRangeGizmoColor = new Color(0f, 0f, 1f, 0.25f); // Blue with 75% opacity
+    public Color chaseRangeGizmoColor = new Color(1f, 0f, 0f, 0.25f); // Red with 75% opacity
+    public Color patrolRangeGizmoColor = new Color(0f, 1f, 0f, 0.25f); // Green with 75% opacity
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         currentState = MonsterState.Idle;
         idleTimer = idleTime;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = alertRangeGizmoColor;
+        Gizmos.DrawSphere(transform.position, alertRange);
+        Gizmos.color = chaseRangeGizmoColor;
+        Gizmos.DrawSphere(transform.position, chaseRange);
+        Gizmos.color = patrolRangeGizmoColor;
+        Gizmos.DrawSphere(transform.position, patrolRange);
+
     }
 
 
