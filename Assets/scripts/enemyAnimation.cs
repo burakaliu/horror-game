@@ -21,13 +21,18 @@ public class enemyAnimation : MonoBehaviour
         {
             anim.SetBool("isIdle", true);
             anim.SetBool("isWalking", false);
+            anim.SetBool("isChasing", false);
         }else if (enemyAI.currentState == enemyAI.MonsterState.Alert)
         {
             anim.SetBool("isIdle", false);
             anim.SetBool("isWalking", true);
-        }else if (enemyAI.currentState == enemyAI.MonsterState.Chase)
+            anim.SetBool("isChasing", false);
+        }
+        else if (enemyAI.currentState == enemyAI.MonsterState.Chase)
         {
             anim.SetBool("isIdle", false);
+            anim.SetBool("isChasing", true);
+            anim.SetBool("isWalking", false);
         }
 
     }
