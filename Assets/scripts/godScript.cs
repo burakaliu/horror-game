@@ -26,11 +26,11 @@ public class godScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (hasKey)
         {
-
+            /*
             distanceFromCamera = key.transform.position - camera.transform.position;
 
             targetPosition = camera.transform.position + new Vector3(1f, -0.5f, 1f);
@@ -50,9 +50,13 @@ public class godScript : MonoBehaviour
 
             // Smoothly rotate the key towards the target rotation
             key.transform.rotation = Quaternion.Lerp(key.transform.rotation, targetRotation, t);
-
+            */
+            // Calculate the interpolation factor based on the desired speed (e.g., 5f)
+            //float t = Time.deltaTime * 20f;
             //key.transform.position = camera.transform.position;
+            //key.transform.position = Vector3.Lerp(key.transform.position, camera.transform.position + new Vector3(1, -0.5f, 1), t);
             //key.transform.localRotation = camera.transform.rotation;
+            //key.transform.localRotation = Quaternion.Lerp(key.transform.localRotation, player.transform.rotation * Quaternion.Euler(180, 30, -90), t);
             //key.transform.Translate(1, -0.5f, 1);
             //key.transform.Rotate(180, 30, -90);
         }
@@ -77,11 +81,11 @@ public class godScript : MonoBehaviour
             key.GetComponent<Collider>().enabled = false;
 
             // Make the key a child of the player
-            //key.transform.SetParent(player.transform);
+            key.transform.SetParent(camera.transform);
 
             // Adjust the position and rotation of the key
-            //key.transform.localPosition = new Vector3(0f, 0f, 0f);
-            //key.transform.localRotation = Quaternion.identity;
+            key.transform.localPosition = new Vector3(1f, -0.5f, 1f);
+            key.transform.localRotation = Quaternion.Euler(180, 30, -90);
 
         }
     }
