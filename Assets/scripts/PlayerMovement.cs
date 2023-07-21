@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    public Slider staminaSlider;  
+    public float maxStamina = 100f;
+    public float currentStamina;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        staminaSlider.value = currentStamina;
     }
 
     private void FixedUpdate()
@@ -70,11 +77,14 @@ public class PlayerMovement : MonoBehaviour
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
-            readyToJump = false;
+            if (currentStamina >= 5)
+            {
+                readyToJump = false;
 
-            Jump();
+                Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
         }
     }
 
@@ -84,8 +94,17 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // Apply sprinting speed if Shift key is held down, otherwise use normal speed
-        float speed = Input.GetKey(KeyCode.LeftShift) ? (moveSpeed*5) : moveSpeed;
+        float speed = Input.GetKey(KeyCode.LeftShift) && currentStamina >= 5 ? (moveSpeed*5) : moveSpeed;
 
+        //reduce stamina when sprinting
+        if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0)
+        {
+            currentStamina -= 10 * Time.deltaTime;
+        }
+        else if(currentStamina < maxStamina)
+        {
+            currentStamina += 13 * Time.deltaTime;
+        }
 
         // on ground
         if (grounded)
